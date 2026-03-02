@@ -86,7 +86,7 @@ Every review produces:
 - A **verdict**: 🟢 Safe to Sign / 🟡 Sign with Changes / 🔴 Do Not Sign Yet / ⛔ Do Not Sign
 - A **risk table** with every flagged clause, quoted exactly, with risk level and suggested fix
 - **Copy-paste redline language** — lawyer-quality replacement text for every must-fix clause
-- **3 worst-case scenarios** grounded in the actual document
+- **Worst-case scenarios** for every critical risk — grounded in the actual document
 - Saved `.md` and `.html` report files
 
 ## Requirements

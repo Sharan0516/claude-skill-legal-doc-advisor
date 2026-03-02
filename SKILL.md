@@ -244,7 +244,7 @@ Who has more negotiating power here, and how should the founder approach the con
 
 ### SECTION 7: WORST-CASE SCENARIOS
 
-Describe exactly **3 realistic scenarios** in this format:
+Cover **every realistic scenario** that could materially harm the founder based on the document's actual risk areas. Do not cap at an arbitrary number — a simple NDA may warrant 2 scenarios; a complex investment agreement may warrant 6 or more. Write one scenario per distinct risk. Do not merge separate risks into one scenario.
 
 **Scenario [N]: [Title]**
 - **What triggers it:** [Specific event — a dispute, acquisition, missed payment, etc.]
@@ -253,7 +253,7 @@ Describe exactly **3 realistic scenarios** in this format:
 - **Reputational impact:** [Effect on founder's standing with investors, customers, employees]
 - **How to mitigate:** [Specific clause change, carve-out, insurance type, or structural fix]
 
-Ground these in the actual document. Avoid generic hypotheticals.
+Ground every scenario in the actual document. Avoid generic hypotheticals. Every 🔴 High and ⛔ Critical row from Section 2 should have a corresponding scenario here.
 
 ---
 
