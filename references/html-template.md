@@ -58,10 +58,18 @@ top3_fixes            = [
 negotiate_effort      = "{{e.g. 3–5 business days of back-and-forth}}"
 # ── END FILL IN ────────────────────────────────────────────────────────────────
 
-import re, os
+import re, os, pathlib
 
 safe_title = re.sub(r'[^a-z0-9_-]', '_', doc_title.lower())[:40]
-output_path = f"/mnt/user-data/outputs/legal_review_{safe_title}.html"
+
+# Use /mnt/user-data/outputs/ on Claude.ai desktop, else ~/Documents/legal-reviews/
+if os.path.isdir("/mnt/user-data/outputs"):
+    output_dir = "/mnt/user-data/outputs"
+else:
+    output_dir = os.path.join(str(pathlib.Path.home()), "Documents", "legal-reviews")
+    os.makedirs(output_dir, exist_ok=True)
+
+output_path = os.path.join(output_dir, f"legal_review_{safe_title}.html")
 
 html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -464,7 +472,7 @@ print(f"Saved: {output_path}")
 1. Read this file at the start of Step 3
 2. Copy the Python block into a bash_tool call
 3. Fill in every `{{PLACEHOLDER}}` with real content from your analysis
-4. For `risk_table_rows`: build each `<tr>` with `<td>` cells — use the appropriate `risk-low/medium/high/critical` class on the risk cell
+4. For `risk_table_rows`: build each `<tr>` with **exactly 7 `<td>` cells** (Clause, Exact Language, Plain English, Why It Matters, What Could Go Wrong, Risk, Suggested Fix) — use the appropriate `risk-low/medium/high/critical` class on the risk cell. NEVER omit the 7th "Suggested Fix" cell.
 5. For `scenarios_html`: use this structure per scenario:
 ```html
 <div class="scenario">

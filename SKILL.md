@@ -26,11 +26,15 @@ You are a senior startup lawyer with 20+ years of experience representing ventur
 
 ## BEFORE YOU START: Read Reference Files
 
-Before beginning analysis, read these two files:
+Before beginning analysis, read these two files. Try each path in order — use whichever exists on this system:
 
-1. **`/mnt/skills/user/legal-doc-advisor/references/agreement-types.md`** — clause checklists, red flags, and market standards by agreement type. Use this to identify missing clauses and calibrate aggressiveness ratings.
+1. **Agreement types reference** — clause checklists, red flags, and market standards by agreement type. Use this to identify missing clauses and calibrate aggressiveness ratings.
+   - Try: `references/agreement-types.md` (relative to this skill's directory)
+   - Or: `/mnt/skills/user/legal-doc-advisor/references/agreement-types.md` (Claude.ai desktop)
 
-2. **`/mnt/skills/user/legal-doc-advisor/references/html-template.md`** — the full HTML template and Python script for generating the polished output file. Read this before Step 4.
+2. **HTML template reference** — the full HTML template and Python script for generating the polished output file. Read this before Step 4.
+   - Try: `references/html-template.md` (relative to this skill's directory)
+   - Or: `/mnt/skills/user/legal-doc-advisor/references/html-template.md` (Claude.ai desktop)
 
 ---
 
@@ -148,10 +152,12 @@ Write 2–3 paragraphs:
 
 ### SECTION 2: CRITICAL RISK AREAS
 
-**Output a detailed table** with these exact columns:
+**Output a detailed table** with these exact **7 columns** — all 7 are MANDATORY for every row:
 
 | Clause / Section | Exact Language (quoted) | Plain English | Why It Matters | What Could Go Wrong | Risk | Suggested Fix |
 |---|---|---|---|---|---|---|
+
+**CRITICAL: Every row MUST have all 7 columns filled in.** The "Suggested Fix" column (column 7) is the most important — it tells the founder exactly what to change. Never omit it. If a clause is standard and needs no fix, write "No change needed — standard clause." Do NOT drop this column.
 
 **Risk levels:**
 - 🟢 Low — Standard, minor or no concern
@@ -364,8 +370,16 @@ After this check:
 
 Read `references/html-template.md` if you haven't already.
 
+### Determine output directory
+
+Pick the first directory that exists or can be created:
+1. `/mnt/user-data/outputs/` (Claude.ai desktop sandbox)
+2. Current working directory, or `~/Documents/legal-reviews/` (Claude Code CLI on any machine)
+
+Create the directory if it doesn't exist before writing files.
+
 ### Markdown File
-Save to `/mnt/user-data/outputs/legal_review_[sanitized_doc_name].md`:
+Save to `[output_dir]/legal_review_[sanitized_doc_name].md`:
 
 ```markdown
 # Legal Review: [Document Title]
@@ -376,20 +390,21 @@ Save to `/mnt/user-data/outputs/legal_review_[sanitized_doc_name].md`:
 [Full 8-section analysis]
 
 ---
-*Legal Document Advisor — Founder-First Review · v2.0*
+*Legal Document Advisor — Founder-First Review · v2.2*
 ```
 
 ### HTML File
 Using the Python template from `references/html-template.md`:
 1. Copy the complete Python script from that file
-2. Fill in **every single `{{PLACEHOLDER}}`** with real content — do not leave any blank
-3. Build `risk_table_rows` as proper HTML `<tr><td>` markup with correct risk CSS classes
-4. Build `scenarios_html` and `negotiation_html` using the component patterns shown in the template
-5. Run via `bash_tool`
-6. Verify it saved: `ls -lh /mnt/user-data/outputs/legal_review_*.html`
+2. **Update the `output_path` variable** to use the output directory determined above (NOT hardcoded `/mnt/user-data/outputs/`)
+3. Fill in **every single `{{PLACEHOLDER}}`** with real content — do not leave any blank
+4. Build `risk_table_rows` as proper HTML `<tr><td>` markup with correct risk CSS classes. **CRITICAL: every `<tr>` MUST contain exactly 7 `<td>` cells** matching the 7 column headers (Clause, Exact Language, Plain English, Why It Matters, What Could Go Wrong, Risk, Suggested Fix). Never skip the Suggested Fix cell.
+5. Build `scenarios_html` and `negotiation_html` using the component patterns shown in the template
+6. Run via `bash_tool`
+7. Verify it saved: `ls -lh [output_dir]/legal_review_*.html`
 
 ### Present Both Files
-Use `present_files` with both the `.md` and `.html` paths.
+Use `present_files` with both the `.md` and `.html` paths. If `present_files` is not available (Claude Code CLI), print the full file paths so the user can open them.
 
 ---
 
